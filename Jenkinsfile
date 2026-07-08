@@ -8,24 +8,17 @@ pipeline {
             }
         }
 
-        stage('Environment Check') {
+        stage('Install Dependencies') {
             steps {
-                sh '''
-                    echo "=== Git ==="
-                    git --version
+                echo 'Installing Node.js dependencies...'
+                sh 'npm ci'
+            }
+        }
 
-                    echo "=== Node.js ==="
-                    node --version || true
-
-                    echo "=== npm ==="
-                    npm --version || true
-
-                    echo "=== Docker CLI ==="
-                    docker --version || true
-
-                    echo "=== curl ==="
-                    curl --version || true
-                '''
+        stage('Run Tests') {
+            steps {
+                echo 'Running automated tests...'
+                sh 'npm test'
             }
         }
     }
