@@ -2,17 +2,30 @@ pipeline {
     agent any
 
     stages {
-        stage('Pipeline Check') {
+        stage('Checkout') {
             steps {
-                echo 'Pipeline loaded successfully from Jenkinsfile'
+                echo 'Source code checked out from GitHub'
             }
         }
 
         stage('Environment Check') {
             steps {
-                sh 'whoami'
-                sh 'pwd'
-                sh 'git --version'
+                sh '''
+                    echo "=== Git ==="
+                    git --version
+
+                    echo "=== Node.js ==="
+                    node --version || true
+
+                    echo "=== npm ==="
+                    npm --version || true
+
+                    echo "=== Docker CLI ==="
+                    docker --version || true
+
+                    echo "=== curl ==="
+                    curl --version || true
+                '''
             }
         }
     }
