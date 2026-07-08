@@ -29,21 +29,34 @@ pipeline {
             }
         }
 
- stage('Deploy Application') {
-    steps {
-        echo 'Removing previous application container if it exists...'
+        stage('Deploy Application') {
+            steps {
+                echo 'Removing previous application container if it exists...'
 
-        sh '''
-            docker rm -f jenkins-cicd-container || true
-        '''
+                sh '''
+                    docker rm -f jenkins-cicd-container || true
+                '''
 
-        echo 'Deploying new application container...'
+                echo 'Deploying new application container...'
 
-        sh '''
-            docker run -d \
-            --name jenkins-cicd-container \
-            -p 3000:3000 \
-            jenkins-cicd-app:latest
-        '''
+                sh '''
+                    docker run -d \
+                    --name jenkins-cicd-container \
+                    -p 3000:3000 \
+                    jenkins-cicd-app:latest
+                '''
+            }
+        }
+
+        stage('Health Check') {
+            steps {
+                echo 'Verifying application health...'
+
+                sh '''
+                    sleep 3
+                    curl --fail http://host.docker.internal:3000/health
+                '''
+            }
+        }
     }
 }
