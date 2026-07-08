@@ -21,5 +21,12 @@ pipeline {
                 sh 'npm test'
             }
         }
+
+        stage('Build Docker Image') {
+            steps {
+                echo 'Building Docker image...'
+                sh 'docker build -t jenkins-cicd-app:latest .'
+            }
+        }
     }
 }
