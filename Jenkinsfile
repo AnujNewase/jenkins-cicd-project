@@ -43,7 +43,7 @@ pipeline {
                     docker run -d \
                     --name jenkins-cicd-container \
                     -p 3000:3000 \
-                    jenkins-cicd-app:latest
+                    jenkins-cicd-app:${BUILD_NUMBER}
                 '''
             }
         }
