@@ -24,8 +24,8 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                echo 'Building Docker image...'
-                sh 'docker build -t jenkins-cicd-app:latest .'
+                echo 'Building versioned Docker image...'
+                sh 'docker build -t jenkins-cicd-app:${BUILD_NUMBER} .'
             }
         }
 
