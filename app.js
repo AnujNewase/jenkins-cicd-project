@@ -17,7 +17,8 @@ app.get("/health", (req, res) => {
 app.get("/api/info", (req, res) => {
   res.status(200).json({
     project: "Jenkins Docker CI/CD Pipeline",
-    version: "1.0.0"
+    version: "1.0.0",
+    deployment: "Automated with Jenkins CI/CD"
   });
 });
 
