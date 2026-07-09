@@ -6,7 +6,7 @@ describe("Task Manager API Tests", () => {
     const response = await request(app).get("/health");
 
     expect(response.statusCode).toBe(200);
-    expect(response.body.status).toBe("broken");
+    expect(response.body.status).toBe("healthy");
   });
 
   test("GET /api/info should return project information", async () => {
